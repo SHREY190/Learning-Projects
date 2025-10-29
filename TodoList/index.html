@@ -5,19 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ToDo List</title>
     <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
   </head>
   <body>
     <main>
-      <!-- Stats -->
-      <nav class="stats">
-        <div class="task-status">
-          <span class="status">Active:</span>
-          <span class="status">Done:</span>
-          <span class="status">Priority:</span>
+      <!-- Title and Dark mode -->
+      <header>
+        <div class="header">
+          <h2>My Tasks</h2>
+          <i class="fa-regular fa-moon"></i>
+          <i class="fa-regular fa-sun"></i>
         </div>
-      </nav>
-      <!-- Add task Section -->
-      <section class="add-task"></section>
+      </header>
+
+      <!-- ToDo Items -->
+      <section id="toDoItems" class="toDoItems">
+        <ul id="taskList" class="taskList">
+          <li>
+            <div>
+              <span class="itemTitle">Title</span>
+              <i class="fa-regular fa-trash-can"></i>
+            </div>
+            <span class="itemSummary">Summary</span>
+          </li>
+          <li>
+            <div>
+              <span class="itemTitle">Title</span>
+              <i class="fa-regular fa-trash-can"></i>
+            </div>
+            <span class="itemSummary">Summary</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Add Task Button -->
+      <section class="addTask">
+        <button class="addNewTask">New Task</button>
+      </section>
+
+      <!-- Modal for Task Title and Summary -->
+      <section>
+        <div>
+          <h4>New Task</h4>
+          <div>
+            <label>Title *</label><input type="text" placeholder="Task Title" />
+          </div>
+          <div>
+            <label>Summary</label
+            ><input type="text" placeholder="Task Summary" />
+          </div>
+          <div>
+            <button>Cancel</button>
+            <button>Create Task</button>
+          </div>
+        </div>
+      </section>
     </main>
+
+    <!-- JS -->
+    <script src="script.js"></script>
   </body>
 </html>
