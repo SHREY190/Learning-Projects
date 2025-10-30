@@ -46,7 +46,7 @@ function addTask() {
   div.appendChild(i);
 
   if (titleInputValue == "") {
-    alert("You must write something!");
+    alert("Enter the Title of the task!");
     closeModal();
     return;
   } else {
@@ -56,7 +56,14 @@ function addTask() {
   // create summary span
   const summarySpan = document.createElement("span");
   summarySpan.classList.add("itemSummary");
-  summarySpan.appendChild(summarytext);
+
+  if (summarytext === "") {
+    alert("Enter the Summary of the task!");
+    closeModal();
+    return;
+  } else {
+    summarySpan.appendChild(summarytext);
+  }
 
   // Append everything into main li
   li.appendChild(div);

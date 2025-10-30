@@ -54,7 +54,7 @@ main {
   background-color: #c9c9c9;
 }
 
-.checked div span {
+.checked span {
   text-decoration: line-through solid red;
   text-decoration-thickness: 2px;
 }
@@ -154,7 +154,8 @@ main {
   border: none;
 }
 
-.input-title label::after {
+.input-title label::after,
+.input-summary label::after {
   content: " *";
   color: red;
 }
