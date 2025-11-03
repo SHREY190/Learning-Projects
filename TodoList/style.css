@@ -5,6 +5,8 @@
   font-family: sans-serif;
 }
 
+/*  Base background */
+
 body {
   width: 100%;
   background-color: #fff;
@@ -15,6 +17,8 @@ body {
 main {
   width: 35%;
 }
+
+/* header section with dark mode button */
 
 .header {
   display: flex;
