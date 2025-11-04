@@ -5,13 +5,28 @@
   font-family: sans-serif;
 }
 
+/* Theme */
+
+:root {
+  --bg-color: #fff;
+  --bg-color-hover: #e7f5ff;
+  --bg-color-checked: #c9c9c9;
+  --bg-color-button: #228be6;
+  --bg-color-button-hover: #157cd6;
+  --bg-color-overlay: #00000066;
+  --border-color: #9999995d;
+  --text-color: #333;
+  --secondary-text-color: #228be6;
+}
+
 /*  Base background */
 
 body {
   width: 100%;
-  background-color: #fff;
+  background-color: var(--bg-color);
   display: flex;
   justify-content: center;
+  color: var(--text-color);
 }
 
 main {
@@ -44,7 +59,7 @@ main {
   padding: 1.5rem 1rem;
   gap: 2rem;
   font-size: 1rem;
-  border: 1px solid #9999995d;
+  border: 1px solid var(--border-color);
   border-radius: 10px;
 }
 
@@ -55,7 +70,7 @@ main {
 }
 
 .checked {
-  background-color: #c9c9c9;
+  background-color: var(--bg-color-checked);
 }
 
 .checked span {
@@ -79,7 +94,7 @@ main {
 
 .fa-moon,
 .fa-sun {
-  color: #228be6;
+  color: var(--secondary-text-color);
 }
 
 .fa-moon:hover,
@@ -93,13 +108,13 @@ main {
   font-size: 1.25rem;
   border-radius: 0.5rem;
   border: none;
-  background-color: #228be6;
+  background-color: var(--bg-color-button);
   color: #fff;
   margin-top: 1rem;
 }
 
 .addNewTask:hover {
-  background-color: #157cd6;
+  background-color: var(--bg-color-button-hover);
   cursor: pointer;
 }
 
@@ -112,8 +127,7 @@ main {
   height: 100%;
   top: 0;
   left: 0;
-  background-color: rgb(0, 0, 0);
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: var(--bg-color-overlay);
   overflow: auto;
   display: none;
 }
@@ -123,8 +137,8 @@ main {
   margin: 15% auto;
   padding: 2rem 1rem;
   border-radius: 0.75rem;
-  border: 1px solid #9999995d;
-  background-color: #fff;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-color);
 
   display: flex;
   flex-direction: column;
@@ -148,7 +162,7 @@ main {
 .input-summary input {
   padding: 0.75rem;
   border-radius: 0.5rem;
-  border: 1px solid #9999995d;
+  border: 1px solid var(--border-color);
   font-size: 1rem;
 }
 
@@ -181,21 +195,21 @@ main {
 }
 
 .task-cancel {
-  background-color: #fff;
-  color: #228be6;
+  background-color: var(--bg-color);
+  color: var(--secondary-text-color);
 }
 
 .task-cancel:hover {
-  background-color: #e7f5ff;
+  background-color: var(--bg-color-hover);
   cursor: pointer;
 }
 
 .task-add {
-  background-color: #228be6;
+  background-color: var(--bg-color-button);
   color: #fff;
 }
 
 .task-add:hover {
-  background-color: #157cd6;
+  background-color: var(--bg-color-button-hover);
   cursor: pointer;
 }

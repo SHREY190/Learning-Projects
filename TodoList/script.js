@@ -51,6 +51,7 @@ function addTask() {
     return;
   } else {
     titleSpan.appendChild(titletext);
+    document.getElementById("titleInput").value = "";
   }
 
   // create summary span
@@ -63,6 +64,7 @@ function addTask() {
     return;
   } else {
     summarySpan.appendChild(summarytext);
+    document.getElementById("summaryInput").value = "";
   }
 
   // Append everything into main li
