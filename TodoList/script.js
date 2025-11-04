@@ -94,3 +94,37 @@ list.addEventListener("click", function (event) {
   // toggle checked class
   li.classList.toggle("checked");
 });
+
+// Toggle Theme button
+
+function toggleTheme() {
+  let icon = document.getElementById("themeIcon");
+  let body = document.body;
+
+  body.classList.toggle("dark-mode");
+
+  if (icon.classList.contains("fa-moon")) {
+    icon.classList.remove("fa-moon");
+    icon.classList.add("fa-sun");
+    icon.title = "Light Mode";
+    localStorage.setItem("theme", "dark");
+  } else if (icon.classList.contains("fa-sun")) {
+    icon.classList.remove("fa-sun");
+    icon.classList.add("fa-moon");
+    icon.title = "Dark Mode";
+    localStorage.setItem("theme", "light");
+  }
+}
+
+// Check theme on laod
+let icon = document.getElementById("themeIcon");
+let body = document.body;
+
+let storedTheme = localStorage.getItem("theme");
+// console.log(storedTheme);
+
+if (storedTheme === "dark") {
+  icon.classList.remove("fa-moon");
+  icon.classList.add("fa-sun");
+  body.classList.add("dark-mode");
+}

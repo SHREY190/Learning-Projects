@@ -9,14 +9,26 @@
 
 :root {
   --bg-color: #fff;
-  --bg-color-hover: #e7f5ff;
+  --bg-secondary: #fff
+  --bg-color-input: #fff;
   --bg-color-checked: #c9c9c9;
-  --bg-color-button: #228be6;
-  --bg-color-button-hover: #157cd6;
-  --bg-color-overlay: #00000066;
+  --bg-secondary-button-hover: #e7f5ff;
+  --bg-color-overlay: #000000bf;
   --border-color: #9999995d;
   --text-color: #333;
-  --secondary-text-color: #228be6;
+  --text-color-secondary: #333;
+}
+
+.dark-mode {
+  --bg-color: #1a1b1e;
+  --bg-secondary: #25262b;
+  --bg-color-input: #2c2e33;
+  --bg-color-checked: #c9c9c9;
+  --bg-secondary-button-hover: #1a3958;
+  --bg-color-overlay: #000000bf;
+  --border-color: #25262b;
+  --text-color:#c1c2c5;
+  --text-color-secondary: #c7c5c5;
 }
 
 /*  Base background */
@@ -51,6 +63,8 @@ main {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+
+  color: var(--text-color);
 }
 
 .taskList li {
@@ -61,12 +75,21 @@ main {
   font-size: 1rem;
   border: 1px solid var(--border-color);
   border-radius: 10px;
+  background-color: var(--bg-secondary);
 }
 
 .taskList li div {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.itemTitle{
+  font-weight: 900;
+}
+
+.itemSummary{
+  color: var(--text-color-secondary);
 }
 
 .checked {
@@ -94,7 +117,7 @@ main {
 
 .fa-moon,
 .fa-sun {
-  color: var(--secondary-text-color);
+  color: #228be6;
 }
 
 .fa-moon:hover,
@@ -108,13 +131,13 @@ main {
   font-size: 1.25rem;
   border-radius: 0.5rem;
   border: none;
-  background-color: var(--bg-color-button);
+  background-color: #228be6;
   color: #fff;
   margin-top: 1rem;
 }
 
 .addNewTask:hover {
-  background-color: var(--bg-color-button-hover);
+  background-color: #157cd6;
   cursor: pointer;
 }
 
@@ -128,6 +151,7 @@ main {
   top: 0;
   left: 0;
   background-color: var(--bg-color-overlay);
+  backdrop-filter: blur(2px);
   overflow: auto;
   display: none;
 }
@@ -164,6 +188,7 @@ main {
   border-radius: 0.5rem;
   border: 1px solid var(--border-color);
   font-size: 1rem;
+  background-color: var(--bg-color-input);
 }
 
 .input-title input:focus,
@@ -196,20 +221,20 @@ main {
 
 .task-cancel {
   background-color: var(--bg-color);
-  color: var(--secondary-text-color);
+  color: #228be6;
 }
 
 .task-cancel:hover {
-  background-color: var(--bg-color-hover);
+  background-color: var(--bg-secondary-button-hover);
   cursor: pointer;
 }
 
 .task-add {
-  background-color: var(--bg-color-button);
+  background-color: #228be6;
   color: #fff;
 }
 
 .task-add:hover {
-  background-color: var(--bg-color-button-hover);
+  background-color: #157cd6;
   cursor: pointer;
 }
