@@ -44,7 +44,6 @@ body {
 main {
   width: 80%;
   border-radius: 25px;
-  /* border: 2px solid blue; */
   box-shadow: 0 0 15px 0 #999;
 }
 
@@ -68,8 +67,8 @@ main {
 }
 
 .header-title h2 {
-  font-size: 44px;
-  font-weight: 800;
+  font-size: 40px;
+  font-weight: 600;
 }
 
 .task-stats {
