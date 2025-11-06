@@ -44,7 +44,8 @@ body {
 main {
   width: 80%;
   border-radius: 25px;
-  box-shadow: 0 0 15px 0 #999;
+  box-shadow: 0 10px 10px 0 #999;
+  margin: 40px auto;
 }
 
 /* Header section with dark mode button */
@@ -242,6 +243,7 @@ main {
 .task-section {
   padding: 30px;
   background-color: var(--bg-secondary);
+  border-radius: 0 0 20px 20px;
 }
 
 .task-list {
