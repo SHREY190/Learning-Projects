@@ -14,61 +14,104 @@
     <main>
       <!-- Title and Dark mode -->
       <header>
-        <div class="header">
-          <h2>My Tasks</h2>
-          <i
-            id="themeIcon"
-            onclick="toggleTheme()"
-            class="fa-regular fa-moon"
-          ></i>
+        <div class="main-header">
+          <div class="header-title">
+            <h2>My Tasks</h2>
+            <i
+              id="themeIcon"
+              onclick="toggleTheme()"
+              class="fa-regular fa-moon"
+            ></i>
+          </div>
+          <div class="task-stats">
+            <div>Total</div>
+            <div>Active</div>
+            <div>Completed</div>
+          </div>
         </div>
       </header>
 
-      <!-- ToDo Items -->
-      <section id="toDoItems" class="toDoItems">
-        <ul id="taskList" class="taskList">
-          <li class="checked">
-            <div>
-              <span class="itemTitle">Title</span>
-              <i class="fa-regular fa-trash-can"></i>
-            </div>
-            <span class="itemSummary">Summary</span>
-          </li>
-          <li>
-            <div>
-              <span class="itemTitle">Title</span>
-              <i class="fa-regular fa-trash-can"></i>
-            </div>
-            <span class="itemSummary">Summary</span>
-          </li>
-        </ul>
-      </section>
-
-      <!-- Add Task Button -->
+      <!-- Add Task Section -->
       <section>
-        <button id="addNewTask" class="addNewTask" onclick="openModal()">
-          New Task
-        </button>
-      </section>
-
-      <!-- Modal for Task Title and Summary -->
-      <section>
-        <div id="addTaskModal" class="add-task-container">
-          <div class="add-task-content">
-            <h4>New Task</h4>
-            <div class="input-title">
-              <label>Title</label>
-              <input id="titleInput" type="text" placeholder="Task Title" />
-            </div>
-            <div class="input-summary">
-              <label>Summary</label>
-              <input id="summaryInput" type="text" placeholder="Task Summary" />
-            </div>
-            <div class="create-task">
-              <button onclick="closeModal()" class="task-cancel">Cancel</button>
-              <button onclick="addTask()" class="task-add">Create Task</button>
+        <div class="add-task">
+          <input
+            class="task-input"
+            type="text"
+            placeholder="Add a new task..."
+          />
+          <div class="add-category">
+            <button class="category-drop-button">Select Category</button>
+            <div class="add-drop-content">
+              <a href="#">Select Category</a>
+              <a href="#">Work</a>
+              <a href="#">Personal</a>
+              <a href="#">Shopping</a>
+              <a href="#">Health</a>
+              <a href="#">Others</a>
             </div>
           </div>
+          <input type="date" class="date-picker" />
+          <button class="add-button">Add Task</button>
+        </div>
+      </section>
+
+      <!-- Filters -->
+      <section>
+        <div class="filter-section">
+          <div class="status-filter">
+            <div>Status:</div>
+            <span>All</span>
+            <span>Active</span>
+            <span>Completed</span>
+          </div>
+          <div class="category-filter">
+            <span>Category: &nbsp;&nbsp;</span>
+            <div class="category-filter-dropdown">
+              <button class="category-filter-button">All Categories</button>
+              <div class="category-filter-content">
+                <a href="#">All Categories</a>
+                <a href="#">Work</a>
+                <a href="#">Personal</a>
+                <a href="#">Shopping</a>
+                <a href="#">Health</a>
+                <a href="#">Others</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Task Items -->
+      <section>
+        <div class="task-section">
+          <ul id="taskList" class="task-list">
+            <li class="list-item">
+              <div class="item-parts">
+                <div class="part-one">
+                  <input type="checkbox" />
+                  <span class="itemTitle">Title</span>
+                </div>
+                <i class="fa-regular fa-trash-can"></i>
+              </div>
+              <ul>
+                <li>Shopping</li>
+                <li>11/6/2025</li>
+              </ul>
+            </li>
+            <li class="list-item">
+              <div class="item-parts">
+                <div class="part-one">
+                  <input type="checkbox" />
+                  <span class="itemTitle">Title</span>
+                </div>
+                <i class="fa-regular fa-trash-can"></i>
+              </div>
+              <ul>
+                <li>Personal</li>
+                <li>11/4/2025</li>
+              </ul>
+            </li>
+          </ul>
         </div>
       </section>
     </main>
