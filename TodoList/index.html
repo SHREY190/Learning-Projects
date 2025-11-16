@@ -35,23 +35,26 @@
       <section>
         <div class="add-task">
           <input
+            id="tastInput"
             class="task-input"
             type="text"
             placeholder="Add a new task..."
           />
           <div class="add-category">
-            <button class="category-drop-button">Select Category</button>
-            <div class="add-drop-content">
-              <a href="#">Select Category</a>
-              <a href="#">Work</a>
-              <a href="#">Personal</a>
-              <a href="#">Shopping</a>
-              <a href="#">Health</a>
-              <a href="#">Others</a>
+            <button id="categoryDropButton" class="category-drop-button">
+              Select Category
+            </button>
+            <div id="addDropContent" class="add-drop-content">
+              <a href="#" data-value="">Select Category</a>
+              <a href="#" data-value="work">Work</a>
+              <a href="#" data-value="personal">Personal</a>
+              <a href="#" data-value="shopping">Shopping</a>
+              <a href="#" data-value="health">Health</a>
+              <a href="#" data-value="others">Others</a>
             </div>
           </div>
-          <input type="date" class="date-picker" />
-          <button class="add-button">Add Task</button>
+          <input id="datePicker" type="date" class="date-picker" />
+          <button id="addButton" class="add-button">Add Task</button>
         </div>
       </section>
 

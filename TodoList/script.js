@@ -1,99 +1,57 @@
-const modal = document.getElementById("addTaskModal");
+// Variables and constants
 
-const addTaskButton = document.getElementById("addNewTask");
+const addCategory = document.getElementById("categoryDropButton");
+const drop = document.getElementById("addDropContent");
+const addCategoryItems = document.querySelectorAll("#addDropContent a");
+const addTaskButton = document.getElementById("addButton");
+const taskDescription = document.getElementById("tastInput");
+const taskEndDate = document.getElementById("datePicker");
+const taskList = document.getElementById("taskList");
+let selectedCategoryValue = "";
 
-// Fucntions to open and close the modal
-function openModal() {
-  modal.style.display = "block";
-}
+//---- Function to select category ----
 
-function closeModal() {
-  modal.style.display = "none";
-}
+// Open dropdown on button click
+addCategory.addEventListener("click", function () {
+  const dropDisplay = document.getElementById("addDropContent");
 
+  dropDisplay.style.display =
+    dropDisplay.style.display === "none" ? "block" : "none";
+});
+
+// Handle click outside of button and dropdown
 window.onclick = function (event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
+  if (!addCategory.contains(event.target) && !drop.contains(event.target)) {
+    drop.style.display = "none";
   }
 };
 
-// Function to add the task to the list
-function addTask() {
-  // Title input text
-  const titleInputValue = document.getElementById("titleInput").value;
-  const titletext = document.createTextNode(titleInputValue);
+// Selecting the Category from the dropdown list.
+addCategoryItems.forEach((item) => {
+  item.addEventListener("click", function (e) {
+    e.preventDefault();
 
-  // Summary Input text
-  const summaryInputValue = document.getElementById("summaryInput").value;
-  const summarytext = document.createTextNode(summaryInputValue);
+    const label = this.textContent;
+    const value = this.dataset.value;
 
-  // Main li element
-  const li = document.createElement("li");
+    addCategory.textContent = label;
+    selectedCategoryValue = value;
 
-  // create inner div
-  const div = document.createElement("div");
-
-  // create title span
-  const titleSpan = document.createElement("span");
-  titleSpan.classList.add("itemTitle");
-
-  // create title icon
-  const i = document.createElement("i");
-  i.classList.add("fa-regular", "fa-trash-can");
-
-  // Add span and icon to the div
-  div.appendChild(titleSpan);
-  div.appendChild(i);
-
-  if (titleInputValue == "") {
-    alert("Enter the Title of the task!");
-    closeModal();
-    return;
-  } else {
-    titleSpan.appendChild(titletext);
-    document.getElementById("titleInput").value = "";
-  }
-
-  // create summary span
-  const summarySpan = document.createElement("span");
-  summarySpan.classList.add("itemSummary");
-
-  if (summarytext === "") {
-    alert("Enter the Summary of the task!");
-    closeModal();
-    return;
-  } else {
-    summarySpan.appendChild(summarytext);
-    document.getElementById("summaryInput").value = "";
-  }
-
-  // Append everything into main li
-  li.appendChild(div);
-  li.appendChild(summarySpan);
-
-  // Append the li to the list
-  document.querySelector("#taskList").appendChild(li);
-
-  // close the modal on success addition of task
-  closeModal();
-}
-
-// mark task as checked and remove the task from the list
-let list = document.querySelector("#taskList");
-list.addEventListener("click", function (event) {
-  //  Ensure you clicked on <li> or something inside it
-  const li = event.target.closest("li");
-  if (!li) return; // Clicked outside of <li>
-
-  // Don't toggle if clciked on the trash icon
-  if (event.target.classList.contains("fa-regular", "fa-trash-can")) {
-    li.remove();
-    return;
-  }
-
-  // toggle checked class
-  li.classList.toggle("checked");
+    // console.log("Selected Category=>", selectedCategoryValue);
+    drop.style.display = "none";
+  });
 });
+
+// ---- Function to add the task to the list ----
+
+function addTask() {
+  const title = taskDescription.value.trim();
+  const category = selectedCategoryValue || "others";
+  const date = taskEndDate.value;
+
+  if (taskDescription.value.trim()) {
+  }
+}
 
 // Toggle Theme button
 

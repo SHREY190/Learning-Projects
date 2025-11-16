@@ -109,12 +109,16 @@ main {
   background-color: var(--bg-secondary);
   font-size: 18px;
   cursor: pointer;
+  min-width: 200px;
+  text-align: left;
+  position: relative;
 }
 
 .category-drop-button::after {
   content: "\00a0\00a0\00a0\00a0\00a0\00a0 \1F783";
-  position: relative;
-  bottom: 3px;
+  position: absolute;
+  right: 10px;
+  bottom: 15px;
 }
 
 .add-drop-content {
@@ -123,6 +127,7 @@ main {
   background-color: var(--bg-secondary);
   border: 1px solid #666;
   min-width: 200px;
+  z-index: 1;
 }
 
 .add-drop-content a {
