@@ -161,6 +161,10 @@ main {
   content: "\f067\00a0\00a0\00a0";
 }
 
+.add-button:hover {
+  cursor: pointer;
+}
+
 /* Filters Section */
 .filter-section {
   padding: 20px;
@@ -192,6 +196,10 @@ main {
   border-radius: 20px;
 }
 
+.status-filter span:hover {
+  cursor: pointer;
+}
+
 .category-filter {
   display: flex;
   align-items: center;
@@ -209,6 +217,10 @@ main {
   border: 1px solid #aaa;
   font-size: 18px;
   background-color: var(--bg-secondary);
+}
+
+.category-filter-button:hover {
+  cursor: pointer;
 }
 
 .category-filter-button::after {
@@ -250,6 +262,7 @@ main {
   display: flex;
   flex-direction: column;
   list-style-type: none;
+  gap: 15px;
 }
 
 .task-list .list-item {
@@ -288,6 +301,20 @@ main {
   display: inline-block; /* Allows width/height to be set */
   vertical-align: middle; /* Align with label text */
   position: relative; /* For positioning the checkmark */
+}
+
+.task-list .list-item ul {
+  display: flex;
+  margin-left: 45px;
+  gap: 10px;
+}
+
+.task-list .list-item ul li {
+  list-style-type: none;
+  padding: 5px 10px;
+  background-color: #f3f4f6;
+  color: #333;
+  border-radius: 20px;
 }
 
 /* Icon Colors and Size */
