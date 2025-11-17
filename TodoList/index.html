@@ -63,21 +63,23 @@
         <div class="filter-section">
           <div class="status-filter">
             <div>Status:</div>
-            <span>All</span>
-            <span>Active</span>
-            <span>Completed</span>
+            <span id="allFilter">All</span>
+            <span id="activeFilter">Active</span>
+            <span id="completedFilter">Completed</span>
           </div>
           <div class="category-filter">
             <span>Category: &nbsp;&nbsp;</span>
             <div class="category-filter-dropdown">
-              <button class="category-filter-button">All Categories</button>
-              <div class="category-filter-content">
-                <a href="#">All Categories</a>
-                <a href="#">Work</a>
-                <a href="#">Personal</a>
-                <a href="#">Shopping</a>
-                <a href="#">Health</a>
-                <a href="#">Others</a>
+              <button id="categoryFilterButton" class="category-filter-button">
+                All Categories
+              </button>
+              <div id="categoryFilterContent" class="category-filter-content">
+                <a href="#" data-value="">Select Category</a>
+                <a href="#" data-value="work">Work</a>
+                <a href="#" data-value="personal">Personal</a>
+                <a href="#" data-value="shopping">Shopping</a>
+                <a href="#" data-value="health">Health</a>
+                <a href="#" data-value="others">Others</a>
               </div>
             </div>
           </div>

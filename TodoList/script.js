@@ -63,6 +63,23 @@ addTaskButton.addEventListener("click", function () {
     const inputCheck = document.createElement("input");
     inputCheck.type = "checkbox";
 
+    inputCheck.addEventListener("change", () => {
+      if (inputCheck.checked) {
+        listItem.setAttribute("data-status", "completed");
+        listItem.classList.add("completed");
+        itemTitle.classList.add("done");
+      } else {
+        listItem.setAttribute("data-status", "active");
+        listItem.classList.remove("completed");
+        itemTitle.classList.remove("done");
+      }
+
+      const activeFilter = document.querySelector(".status-filter .active");
+      // get selected filter type
+      const type = activeFilter.id.replace("Filter", "").toLowerCase(); // Remove the "Filter" from the id : allFilter, activeFilter and completeFilter.
+      applyStatusFilter(type);
+    });
+
     const itemTitle = document.createElement("span");
     itemTitle.className = "item-title";
     itemTitle.textContent = title;
@@ -117,6 +134,7 @@ addTaskButton.addEventListener("click", function () {
     // Final Task
     listItem.appendChild(itemPart);
     listItem.appendChild(detailsList);
+    listItem.setAttribute("data-status", "active");
 
     // Add task to the task list
     taskList.appendChild(listItem);
@@ -130,6 +148,77 @@ addTaskButton.addEventListener("click", function () {
   } else {
     alert("Please enter a Task.");
   }
+});
+
+// Filters
+
+const filters = document.querySelectorAll(".status-filter span");
+
+document.getElementById("allFilter").classList.add("active");
+
+filters.forEach((filter) => {
+  filter.addEventListener("click", () => {
+    filters.forEach((f) => f.classList.remove("active"));
+
+    filter.classList.add("active");
+
+    // get selected filter type
+    const type = filter.id.replace("Filter", "").toLowerCase(); // Remove the "Filter" from the id : allFilter, activeFilter and completeFilter.
+    applyStatusFilter(type);
+  });
+});
+
+function applyStatusFilter(type) {
+  const tasks = document.querySelectorAll(".list-item");
+
+  tasks.forEach((task) => {
+    const status = task.getAttribute("data-status");
+
+    if (type === "all" || type === status) {
+      task.style.display = "block";
+    } else {
+      task.style.display = "none";
+    }
+  });
+}
+
+// Dropdown filter
+
+const dropdownFilter = document.getElementById("categoryFilterButton");
+const dropdownFilterItems = document.getElementById("categoryFilterContent");
+
+dropdownFilter.addEventListener("click", () => {
+  dropdownFilterItems.style.display =
+    dropdownFilterItems.style.display === "none" ? "block" : "none";
+});
+
+window.addEventListener("click", (event) => {
+  if (
+    !dropdownFilter.contains(event.target) &&
+    !dropdownFilterItems.contains(event.target)
+  ) {
+    dropdownFilterItems.style.display = "none";
+  }
+});
+
+// Applying drop down filter
+
+const dropdownFilterList = document.querySelectorAll(
+  "#categoryFilterContent a"
+);
+
+dropdownFilterList.forEach((dropFilter) => {
+  dropFilter.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const selectedCategory = dropFilter.dataset.value;
+    const categoryFilterBtn = document.getElementById("categoryFilterButton");
+
+    categoryFilterBtn.textContent =
+      selectedCategory === "" ? "All Category" : dropFilter.textContent;
+
+    dropdownFilterItems.style.display = "none";
+  });
 });
 
 // Toggle Theme button
