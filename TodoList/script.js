@@ -44,14 +44,69 @@ addCategoryItems.forEach((item) => {
 
 // ---- Function to add the task to the list ----
 
-function addTask() {
+addTaskButton.addEventListener("click", function () {
   const title = taskDescription.value.trim();
   const category = selectedCategoryValue || "others";
   const date = taskEndDate.value;
 
   if (taskDescription.value.trim()) {
+    const listItem = document.createElement("li");
+    listItem.className = "list-item";
+
+    // Checkbox, title , delete icon
+    const itemPart = document.createElement("div");
+    itemPart.className = "item-parts";
+
+    const partOne = document.createElement("div");
+    partOne.className = "part-one";
+
+    const inputCheck = document.createElement("input");
+    inputCheck.type = "checkbox";
+
+    const itemTitle = document.createElement("span");
+    itemTitle.className = "item-title";
+    itemTitle.textContent = title;
+
+    const deleteIcon = document.createElement("i");
+    deleteIcon.className = "fa-regular fa-trash-can";
+
+    partOne.appendChild(inputCheck);
+    partOne.appendChild(itemTitle);
+
+    itemPart.appendChild(partOne);
+    itemPart.appendChild(deleteIcon);
+
+    // Date and category
+    const detailsList = document.createElement("ul");
+
+    const itemCategory = document.createElement("li");
+    itemCategory.textContent = category;
+
+    if (date) {
+      const itemEndDate = document.createElement("li");
+      itemEndDate.textContent = date;
+      detailsList.appendChild(itemEndDate);
+    }
+
+    detailsList.appendChild(itemCategory);
+
+    // Final Task
+    listItem.appendChild(itemPart);
+    listItem.appendChild(detailsList);
+
+    // Add task to the task list
+    taskList.appendChild(listItem);
+
+    // Empty the input on successful task addition
+    taskDescription.value = "";
+    selectedCategoryValue = "";
+    taskEndDate.value = "";
+    addCategory.value = selectedCategoryValue;
+    addCategory.textContent = "Select Category";
+  } else {
+    alert("Please enter a Task.");
   }
-}
+});
 
 // Toggle Theme button
 
