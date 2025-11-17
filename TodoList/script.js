@@ -221,6 +221,8 @@ dropdownFilterList.forEach((dropFilter) => {
   });
 });
 
+// ToDo: Add filter for the category select also maintain the filer when the status filter chanegs visa-versa
+
 // Toggle Theme button
 
 function toggleTheme() {
