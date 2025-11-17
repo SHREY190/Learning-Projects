@@ -80,15 +80,39 @@ addTaskButton.addEventListener("click", function () {
     const detailsList = document.createElement("ul");
 
     const itemCategory = document.createElement("li");
-    itemCategory.textContent = category;
+
+    const tagIcon = document.createElement("i");
+    tagIcon.className = "fa-solid fa-tag";
+
+    itemCategory.appendChild(tagIcon);
+
+    itemCategory.append(" " + category);
+
+    const categoryClassMap = {
+      work: "work-color",
+      personal: "personal-color",
+      health: "date-passed",
+      shopping: "shopping-color",
+    };
+
+    if (categoryClassMap[category]) {
+      itemCategory.classList.add(categoryClassMap[category]);
+    }
+
+    detailsList.appendChild(itemCategory);
 
     if (date) {
       const itemEndDate = document.createElement("li");
       itemEndDate.textContent = date;
       detailsList.appendChild(itemEndDate);
-    }
 
-    detailsList.appendChild(itemCategory);
+      const today = new Date();
+
+      const inputDate = new Date(date);
+      if (today > inputDate) {
+        itemEndDate.classList.add("date-passed");
+      }
+    }
 
     // Final Task
     listItem.appendChild(itemPart);

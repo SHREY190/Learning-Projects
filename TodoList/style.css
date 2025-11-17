@@ -322,6 +322,29 @@ main {
   border-radius: 20px;
 }
 
+.task-list .list-item ul .date-passed {
+  list-style-type: none;
+  padding: 5px 10px;
+  background-color: #fee2e2;
+  color: #cf352e;
+  border-radius: 20px;
+}
+
+.task-list .list-item ul .shopping-color {
+  background-color: #dcfce7;
+  color: #319679;
+}
+
+.task-list .list-item ul .personal-color {
+  background-color: #f3e8ff;
+  color: #9c2bd1;
+}
+
+.task-list .list-item ul .work-color {
+  background-color: #dbeafe;
+  color: #3d5bdb;
+}
+
 /* Icon Colors and Size */
 
 .fa-trash-can {
