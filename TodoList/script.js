@@ -262,6 +262,15 @@ function applyCategoryFilter(categoryFilterText) {
   });
 }
 
+// Delete list items
+
+taskList.addEventListener("click", (e) => {
+  if (e.target.classList.contains("fa-trash-can")) {
+    const itemToDelete = e.target.closest(".list-item");
+    itemToDelete.remove();
+  }
+});
+
 // Toggle Theme button
 
 function toggleTheme() {
