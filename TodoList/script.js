@@ -135,6 +135,7 @@ addTaskButton.addEventListener("click", function () {
     listItem.appendChild(itemPart);
     listItem.appendChild(detailsList);
     listItem.setAttribute("data-status", "active");
+    listItem.setAttribute("data-category", category);
 
     // Add task to the task list
     taskList.appendChild(listItem);
@@ -143,7 +144,6 @@ addTaskButton.addEventListener("click", function () {
     taskDescription.value = "";
     selectedCategoryValue = "";
     taskEndDate.value = "";
-    addCategory.value = selectedCategoryValue;
     addCategory.textContent = "Select Category";
   } else {
     alert("Please enter a Task.");
@@ -173,8 +173,18 @@ function applyStatusFilter(type) {
 
   tasks.forEach((task) => {
     const status = task.getAttribute("data-status");
+    const taskCategory = task.getAttribute("data-category");
 
-    if (type === "all" || type === status) {
+    const categoryFilterBtn = document.getElementById(
+      "categoryFilterButton"
+    ).value;
+
+    const matchesStatus = type === "all" || type === status;
+
+    const matchesCategory =
+      categoryFilterBtn === "" || categoryFilterBtn === taskCategory;
+
+    if (matchesStatus && matchesCategory) {
       task.style.display = "block";
     } else {
       task.style.display = "none";
@@ -214,14 +224,43 @@ dropdownFilterList.forEach((dropFilter) => {
     const selectedCategory = dropFilter.dataset.value;
     const categoryFilterBtn = document.getElementById("categoryFilterButton");
 
+    categoryFilterBtn.value = selectedCategory;
+
     categoryFilterBtn.textContent =
-      selectedCategory === "" ? "All Category" : dropFilter.textContent;
+      selectedCategory === "" ? "All Categories" : dropFilter.textContent;
+    applyCategoryFilter(selectedCategory);
 
     dropdownFilterItems.style.display = "none";
   });
 });
 
-// ToDo: Add filter for the category select also maintain the filer when the status filter chanegs visa-versa
+// Category Filter
+
+function applyCategoryFilter(categoryFilterText) {
+  const tasks = document.querySelectorAll(".list-item");
+
+  tasks.forEach((task) => {
+    const taskCategory = task.getAttribute("data-category");
+    const categoryText = categoryFilterText;
+    const status = task.getAttribute("data-status");
+
+    const activeStatusFilter = document.querySelector(".status-filter .active");
+    const selectedStatus = activeStatusFilter.id
+      .replace("Filter", "")
+      .toLowerCase();
+
+    const matchesCategory =
+      taskCategory === categoryText || categoryText === "";
+
+    const matchesStatus = selectedStatus === "all" || selectedStatus === status;
+
+    if (matchesCategory && matchesStatus) {
+      task.style.display = "block";
+    } else {
+      task.style.display = "none";
+    }
+  });
+}
 
 // Toggle Theme button
 
