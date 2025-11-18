@@ -112,10 +112,7 @@ addTaskButton.addEventListener("click", () => {
   tagIcon.className = "fa-solid fa-tag";
   itemCategory.appendChild(tagIcon);
 
-  // category label separated in span so styling doesn't affect icon
-  const catText = document.createElement("span");
-  catText.textContent = " " + category;
-  itemCategory.appendChild(catText);
+  itemCategory.textContent = " " + category;
 
   // Add category color class to text span
   const categoryClassMap = {
@@ -126,7 +123,7 @@ addTaskButton.addEventListener("click", () => {
     others: "others-color",
   };
   if (categoryClassMap[category]) {
-    catText.classList.add(categoryClassMap[category]);
+    itemCategory.classList.add(categoryClassMap[category]);
   }
 
   detailsList.appendChild(itemCategory);
