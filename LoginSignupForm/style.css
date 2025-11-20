@@ -1,0 +1,181 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, sans-serif;
+}
+
+body {
+  background: linear-gradient(
+    135deg,
+    rgba(42, 123, 155, 1) 0%,
+    rgba(87, 199, 133, 1) 50%,
+    rgba(237, 221, 83, 1) 100%
+  );
+  min-height: 100vh;
+  margin: 30px auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Container Styles */
+
+.auth-container {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 60px;
+  min-width: 600px;
+}
+
+.auth-select {
+  width: 100%;
+  background-color: #f0f0f0;
+  padding: 5px;
+  border: none;
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+}
+
+.auth-option {
+  flex: 1;
+  font-size: 22px;
+  font-weight: 700;
+  padding: 10px;
+  color: #333;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.auth-option:hover {
+  cursor: pointer;
+}
+
+.auth-option.active {
+  background-color: #fff;
+  border: none;
+
+  outline: 2px solid #ff5500;
+  color: #ff6f27;
+}
+
+/* Login Sign Up container common styles */
+
+.container {
+  width: 100%;
+}
+
+.container.hidden {
+  display: none;
+}
+
+.content {
+  width: 100%;
+}
+
+.content h2 {
+  font-size: 36px;
+  margin: 40px 0 20px 0;
+}
+
+.form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-content .input-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-content .input-sections label {
+  font-size: 18px;
+  font-weight: 600;
+  color: #444;
+}
+
+.form-content .input-sections label::after {
+  content: "*";
+  color: red;
+}
+
+.form-content .input-sections input {
+  padding: 12px;
+  font-size: 20px;
+  border: 2px solid #d6d6d6;
+  border-radius: 10px;
+}
+
+.form-content .input-sections input:focus {
+  border: 2px solid #ff8f57;
+  outline: none;
+  box-shadow: 0 0 5px 2px #fac65e;
+}
+
+.form-content .input-checkbox {
+  font-size: 20px;
+  color: #444;
+}
+
+.form-content .input-checkbox input:hover {
+  cursor: pointer;
+}
+
+.form-content .submit-button {
+  width: 100%;
+  padding: 10px;
+  font-size: 22px;
+  font-weight: 500;
+  border-radius: 10px;
+  color: #fff;
+  background: linear-gradient(135deg, #ff9900 0%, #ff6600 100%);
+  border: none;
+}
+
+.form-content .submit-button:hover {
+  cursor: pointer;
+}
+
+.form-content .forgot-pass {
+  font-size: 18px;
+  font-weight: 500;
+  color: #ff6600;
+  text-align: center;
+  border: 1px solid #ff6600;
+  border-radius: 10px;
+  padding: 12px;
+  text-decoration: none;
+}
+
+.form-content .forgot-pass:hover {
+  cursor: pointer;
+}
+
+.form-content .password-rules {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.form-content .password-rules h3 {
+  color: #444;
+  font-weight: 600;
+}
+
+.form-content .password-rules .rule-list {
+  list-style-position: inside;
+}
+
+.form-content .password-rules .rule-list li {
+  padding: 5px 0;
+  color: #666;
+}
