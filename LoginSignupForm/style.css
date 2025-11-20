@@ -115,6 +115,17 @@ body {
   border-radius: 10px;
 }
 
+.error {
+  color: red;
+  font: 16px;
+  margin-top: 6px;
+  display: none;
+}
+
+.form-content .input-sections input:invalid:not(:placeholder-shown) ~ .error {
+  display: block;
+}
+
 .form-content .input-sections input:focus {
   border: 2px solid #ff8f57;
   outline: none;

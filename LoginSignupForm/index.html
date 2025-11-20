@@ -4,10 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    />
     <title>Login and Sign-Up</title>
   </head>
   <body>
@@ -24,12 +20,23 @@
             <form class="form-content">
               <div class="input-sections">
                 <label>Email Address&nbsp;</label>
-                <input type="email" placeholder="your.email@example.com" />
+                <input
+                  type="email"
+                  placeholder="your.email@example.com"
+                  required
+                />
+                <div class="error">Please enter a valid Email address</div>
               </div>
 
               <div class="input-sections">
                 <label>Password&nbsp;</label>
-                <input type="password" placeholder="Enter your password" />
+                <input
+                  type="password"
+                  placeholder="Enter your password"
+                  minlength="8"
+                  required
+                />
+                <div class="error">Password must be at least 8 characters</div>
               </div>
 
               <div class="input-checkbox">
@@ -50,17 +57,31 @@
             <form class="form-content">
               <div class="input-sections">
                 <label>Full Name&nbsp;</label>
-                <input type="text" placeholder="John Doe" />
+                <input type="text" placeholder="John Doe" required />
+                <div class="error">Username is required</div>
               </div>
 
               <div class="input-sections">
                 <label>Email Address&nbsp;</label>
-                <input type="email" placeholder="your.email@example.com" />
+                <input
+                  type="email"
+                  placeholder="your.email@example.com"
+                  required
+                />
+                <div class="error">Please enter a valid Email address</div>
               </div>
 
               <div class="input-sections">
                 <label>Password&nbsp;</label>
-                <input type="password" placeholder="Create a strong password" />
+                <input
+                  type="password"
+                  placeholder="Create a strong password"
+                  required
+                  minlength="8"
+                />
+                <div class="error">
+                  Password must meet the requirements below
+                </div>
               </div>
 
               <div class="password-rules">
