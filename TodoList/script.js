@@ -1,293 +1,341 @@
-// script.js
-// Complete working JS for the ToDo app (status + category filters, counts, add/delete, checkbox toggle)
+// Variables and constants
 
-// --- Elements & state ---
-const addCategoryBtn = document.getElementById("categoryDropButton");
-const addCategoryDrop = document.getElementById("addDropContent");
+const addCategory = document.getElementById("categoryDropButton");
+const drop = document.getElementById("addDropContent");
 const addCategoryItems = document.querySelectorAll("#addDropContent a");
-
 const addTaskButton = document.getElementById("addButton");
 const taskDescription = document.getElementById("tastInput");
 const taskEndDate = document.getElementById("datePicker");
 const taskList = document.getElementById("taskList");
-
-// category filter UI
-const categoryFilterBtn = document.getElementById("categoryFilterButton");
-const categoryFilterContent = document.getElementById("categoryFilterContent");
-const categoryFilterItems = document.querySelectorAll(
-  "#categoryFilterContent a"
-);
-
-// status filter spans
-const statusFilterSpans = document.querySelectorAll(".status-filter span");
-
-// default selected category value for add-task dropdown
 let selectedCategoryValue = "";
 
-// ensure filter button has dataset value (empty = all)
-if (!categoryFilterBtn.dataset.value) categoryFilterBtn.dataset.value = "";
+//---- Function to select category ----
 
-// ----------------------
-// Dropdown: Add-Category (Add task)
-// ----------------------
-addCategoryBtn.addEventListener("click", (e) => {
-  e.stopPropagation();
-  addCategoryDrop.style.display =
-    addCategoryDrop.style.display === "block" ? "none" : "block";
+// Open dropdown on button click
+addCategory.addEventListener("click", function () {
+  const dropDisplay = document.getElementById("addDropContent");
+
+  dropDisplay.style.display =
+    dropDisplay.style.display === "none" ? "block" : "none";
 });
 
-// select category from add-task dropdown
+// Handle click outside of button and dropdown
+window.onclick = function (event) {
+  if (!addCategory.contains(event.target) && !drop.contains(event.target)) {
+    drop.style.display = "none";
+  }
+};
+
+// Selecting the Category from the dropdown list.
 addCategoryItems.forEach((item) => {
   item.addEventListener("click", function (e) {
     e.preventDefault();
-    const label = this.textContent.trim();
-    const value = this.dataset.value ?? "";
 
-    addCategoryBtn.textContent = label;
-    addCategoryBtn.dataset.value = value; // keep for reference if needed
+    const label = this.textContent;
+    const value = this.dataset.value;
+
+    addCategory.textContent = label;
     selectedCategoryValue = value;
 
-    addCategoryDrop.style.display = "none";
+    // console.log("Selected Category=>", selectedCategoryValue);
+    drop.style.display = "none";
   });
 });
 
-// ----------------------
-// Close add-category dropdown when clicking outside
-// ----------------------
-window.addEventListener("click", (event) => {
-  if (
-    !addCategoryBtn.contains(event.target) &&
-    !addCategoryDrop.contains(event.target)
-  ) {
-    addCategoryDrop.style.display = "none";
-  }
-});
+// ---- Function to add the task to the list ----
 
-// ----------------------
-// Adding Tasks
-// ----------------------
-addTaskButton.addEventListener("click", () => {
+addTaskButton.addEventListener("click", function () {
   const title = taskDescription.value.trim();
   const category = selectedCategoryValue || "others";
   const date = taskEndDate.value;
 
-  if (!title) {
-    alert("Please enter a Task.");
-    return;
-  }
+  if (taskDescription.value.trim()) {
+    const listItem = document.createElement("li");
+    listItem.className = "list-item";
 
-  // create elements
-  const listItem = document.createElement("li");
-  listItem.className = "list-item";
-  listItem.dataset.status = "active"; // active by default
-  listItem.dataset.category = category; // save category
+    // Checkbox, title , delete icon
+    const itemPart = document.createElement("div");
+    itemPart.className = "item-parts";
 
-  const itemParts = document.createElement("div");
-  itemParts.className = "item-parts";
+    const partOne = document.createElement("div");
+    partOne.className = "part-one";
 
-  const partOne = document.createElement("div");
-  partOne.className = "part-one";
+    const inputCheck = document.createElement("input");
+    inputCheck.type = "checkbox";
 
-  const inputCheck = document.createElement("input");
-  inputCheck.type = "checkbox";
+    inputCheck.addEventListener("change", () => {
+      if (inputCheck.checked) {
+        listItem.setAttribute("data-status", "completed");
+        listItem.classList.add("completed");
+        itemTitle.classList.add("done");
+      } else {
+        listItem.setAttribute("data-status", "active");
+        listItem.classList.remove("completed");
+        itemTitle.classList.remove("done");
+      }
+      totalCount();
 
-  const itemTitle = document.createElement("span");
-  itemTitle.className = "item-title";
-  itemTitle.textContent = title;
+      const activeFilter = document.querySelector(".status-filter .active");
+      // get selected filter type
+      const type = activeFilter.id.replace("Filter", "").toLowerCase(); // Remove the "Filter" from the id : allFilter, activeFilter and completeFilter.
+    });
 
-  const deleteIcon = document.createElement("i");
-  deleteIcon.className = "fa-regular fa-trash-can";
+    const itemTitle = document.createElement("span");
+    itemTitle.className = "item-title";
+    itemTitle.textContent = title;
 
-  // append checkbox + title
-  partOne.appendChild(inputCheck);
-  partOne.appendChild(itemTitle);
-  itemParts.appendChild(partOne);
-  itemParts.appendChild(deleteIcon);
+    const deleteIcon = document.createElement("i");
+    deleteIcon.className = "fa-regular fa-trash-can";
 
-  // details (category + date)
-  const detailsList = document.createElement("ul");
+    partOne.appendChild(inputCheck);
+    partOne.appendChild(itemTitle);
 
-  const itemCategory = document.createElement("li");
-  const tagIcon = document.createElement("i");
-  tagIcon.className = "fa-solid fa-tag";
-  itemCategory.appendChild(tagIcon);
+    itemPart.appendChild(partOne);
+    itemPart.appendChild(deleteIcon);
 
-  itemCategory.textContent = " " + category;
+    // Date and category
+    const detailsList = document.createElement("ul");
 
-  // Add category color class to text span
-  const categoryClassMap = {
-    work: "work-color",
-    personal: "personal-color",
-    health: "date-passed", // you used this class earlier; change if you want a dedicated health-color
-    shopping: "shopping-color",
-    others: "others-color",
-  };
-  if (categoryClassMap[category]) {
-    itemCategory.classList.add(categoryClassMap[category]);
-  }
+    const itemCategory = document.createElement("li");
 
-  detailsList.appendChild(itemCategory);
+    const tagIcon = document.createElement("i");
+    tagIcon.className = "fa-solid fa-tag";
 
-  if (date) {
-    const itemEndDate = document.createElement("li");
-    itemEndDate.textContent = date;
-    // mark date-passed if in past
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const inputDate = new Date(date);
-    inputDate.setHours(0, 0, 0, 0);
-    if (inputDate < today) itemEndDate.classList.add("date-passed");
-    detailsList.appendChild(itemEndDate);
-  }
+    itemCategory.appendChild(tagIcon);
 
-  // assemble
-  listItem.appendChild(itemParts);
-  listItem.appendChild(detailsList);
+    itemCategory.append(" " + category);
 
-  // append to DOM
-  taskList.appendChild(listItem);
+    const categoryClassMap = {
+      work: "work-color",
+      personal: "personal-color",
+      health: "date-passed",
+      shopping: "shopping-color",
+    };
 
-  // attach checkbox listener (for this newly created checkbox)
-  inputCheck.addEventListener("change", () => {
-    if (inputCheck.checked) {
-      listItem.dataset.status = "completed";
-      listItem.classList.add("completed");
-      itemTitle.classList.add("done");
-    } else {
-      listItem.dataset.status = "active";
-      listItem.classList.remove("completed");
-      itemTitle.classList.remove("done");
+    if (categoryClassMap[category]) {
+      itemCategory.classList.add(categoryClassMap[category]);
     }
+
+    detailsList.appendChild(itemCategory);
+
+    if (date) {
+      const itemEndDate = document.createElement("li");
+      itemEndDate.textContent = date;
+      detailsList.appendChild(itemEndDate);
+
+      const today = new Date();
+
+      const inputDate = new Date(date);
+      if (today > inputDate) {
+        itemEndDate.classList.add("date-passed");
+      }
+    }
+
+    // Final Task
+    listItem.appendChild(itemPart);
+    listItem.appendChild(detailsList);
+    listItem.setAttribute("data-status", "active");
+    listItem.setAttribute("data-category", category);
+
+    // Add task to the task list
+    taskList.appendChild(listItem);
     totalCount();
-    filterTasks(); // reapply current filters so changes reflect immediately
-  });
+    applyActiveFilters();
 
-  // reset inputs
-  taskDescription.value = "";
-  taskEndDate.value = "";
-  selectedCategoryValue = "";
-  addCategoryBtn.textContent = "Select Category";
-  addCategoryBtn.dataset.value = "";
-
-  // update counts and reapply filters so new task obeys active filters
-  totalCount();
-  filterTasks();
-});
-
-// ----------------------
-// Delete via event delegation (works for dynamic items)
-// ----------------------
-taskList.addEventListener("click", (e) => {
-  // delete icon clicked
-  if (e.target.classList.contains("fa-trash-can")) {
-    const itemToDelete = e.target.closest(".list-item");
-    if (!itemToDelete) return;
-    itemToDelete.remove();
-    totalCount();
-    filterTasks();
+    // Empty the input on successful task addition
+    taskDescription.value = "";
+    selectedCategoryValue = "";
+    taskEndDate.value = "";
+    addCategory.textContent = "Select Category";
+  } else {
+    alert("Please enter a Task.");
   }
 });
 
-// ----------------------
-// Status filter (All / Active / Completed)
-// ----------------------
-// Make "All" active by default (if not already)
-const allFilterSpan = document.getElementById("allFilter");
-if (allFilterSpan && !document.querySelector(".status-filter .active")) {
-  allFilterSpan.classList.add("active");
+// Filters
+
+const filters = document.querySelectorAll(".status-filter span");
+
+document.getElementById("allFilter").classList.add("active");
+
+filters.forEach((filter) => {
+  filter.addEventListener("click", () => {
+    filters.forEach((f) => f.classList.remove("active"));
+
+    filter.classList.add("active");
+
+    // get selected filter type
+    const type = filter.id.replace("Filter", "").toLowerCase(); // Remove the "Filter" from the id : allFilter, activeFilter and completeFilter.
+    applyStatusFilter(type);
+  });
+});
+
+function applyStatusFilter(type) {
+  const tasks = document.querySelectorAll(".list-item");
+
+  tasks.forEach((task) => {
+    const status = task.getAttribute("data-status");
+    const taskCategory = task.getAttribute("data-category");
+
+    const categoryFilterBtn = document.getElementById(
+      "categoryFilterButton"
+    ).value;
+
+    const matchesStatus = type === "all" || type === status;
+
+    const matchesCategory =
+      categoryFilterBtn === "" || categoryFilterBtn === taskCategory;
+
+    if (matchesStatus && matchesCategory) {
+      task.style.display = "block";
+    } else {
+      task.style.display = "none";
+    }
+  });
 }
 
-// clicking status spans
-statusFilterSpans.forEach((span) => {
-  span.addEventListener("click", () => {
-    statusFilterSpans.forEach((s) => s.classList.remove("active"));
-    span.classList.add("active");
-    filterTasks();
-  });
+// Dropdown filter
+
+const dropdownFilter = document.getElementById("categoryFilterButton");
+const dropdownFilterItems = document.getElementById("categoryFilterContent");
+
+dropdownFilter.addEventListener("click", () => {
+  dropdownFilterItems.style.display =
+    dropdownFilterItems.style.display === "none" ? "block" : "none";
 });
 
-// ----------------------
-// Category filter dropdown (UI)
-// ----------------------
-categoryFilterBtn.addEventListener("click", (e) => {
-  e.stopPropagation();
-  categoryFilterContent.style.display =
-    categoryFilterContent.style.display === "block" ? "none" : "block";
-});
-
-// close category-filter dropdown when clicking outside
 window.addEventListener("click", (event) => {
   if (
-    !categoryFilterBtn.contains(event.target) &&
-    !categoryFilterContent.contains(event.target)
+    !dropdownFilter.contains(event.target) &&
+    !dropdownFilterItems.contains(event.target)
   ) {
-    categoryFilterContent.style.display = "none";
+    dropdownFilterItems.style.display = "none";
   }
 });
 
-// clicking an item inside category filter
-categoryFilterItems.forEach((a) => {
-  a.addEventListener("click", (e) => {
+// Applying drop down filter
+
+const dropdownFilterList = document.querySelectorAll(
+  "#categoryFilterContent a"
+);
+
+dropdownFilterList.forEach((dropFilter) => {
+  dropFilter.addEventListener("click", (e) => {
     e.preventDefault();
-    const selected = a.dataset.value ?? "";
-    // store selected filter value on button dataset
-    categoryFilterBtn.dataset.value = selected;
+
+    const selectedCategory = dropFilter.dataset.value;
+    const categoryFilterBtn = document.getElementById("categoryFilterButton");
+
+    categoryFilterBtn.value = selectedCategory;
+
     categoryFilterBtn.textContent =
-      selected === "" ? "All Categories" : a.textContent;
-    categoryFilterContent.style.display = "none";
-    filterTasks();
+      selectedCategory === "" ? "All Categories" : dropFilter.textContent;
+    applyCategoryFilter(selectedCategory);
+
+    dropdownFilterItems.style.display = "none";
   });
 });
 
-// ----------------------
-// Unified filter function (status + category)
-// ----------------------
-function filterTasks() {
-  const activeStatusFilter = document.querySelector(".status-filter .active");
-  const statusType = activeStatusFilter
-    ? activeStatusFilter.id.replace("Filter", "").toLowerCase()
-    : "all";
+// Category Filter
 
-  const categoryType = categoryFilterBtn.dataset.value ?? "";
-
+function applyCategoryFilter(categoryFilterText) {
   const tasks = document.querySelectorAll(".list-item");
+
   tasks.forEach((task) => {
-    const taskStatus = task.dataset.status ?? "active";
-    const taskCategory = task.dataset.category ?? "";
+    const taskCategory = task.getAttribute("data-category");
+    const categoryText = categoryFilterText;
+    const status = task.getAttribute("data-status");
 
-    const matchesStatus = statusType === "all" || statusType === taskStatus;
+    const activeStatusFilter = document.querySelector(".status-filter .active");
+    const selectedStatus = activeStatusFilter.id
+      .replace("Filter", "")
+      .toLowerCase();
+
     const matchesCategory =
-      categoryType === "" || categoryType === taskCategory;
+      taskCategory === categoryText || categoryText === "";
 
-    task.style.display = matchesStatus && matchesCategory ? "block" : "none";
+    const matchesStatus = selectedStatus === "all" || selectedStatus === status;
+
+    if (matchesCategory && matchesStatus) {
+      task.style.display = "block";
+    } else {
+      task.style.display = "none";
+    }
   });
 }
 
-// ----------------------
-// Counts
-// ----------------------
+// Delete list items
+
+taskList.addEventListener("click", (e) => {
+  if (e.target.classList.contains("fa-trash-can")) {
+    const itemToDelete = e.target.closest(".list-item");
+    itemToDelete.remove();
+  }
+});
+
+// Count function
+
 function totalCount() {
   const tasks = document.querySelectorAll(".list-item");
-  const total = tasks.length;
-  const active = document.querySelectorAll(
+
+  const totalCount = tasks.length;
+  const activeCount = document.querySelectorAll(
     '.list-item[data-status="active"]'
   ).length;
-  const completed = document.querySelectorAll(
+  const completedCount = document.querySelectorAll(
     '.list-item[data-status="completed"]'
   ).length;
 
-  // update DOM (make sure these elements exist in your HTML)
-  const totalEl = document.getElementById("totalCount");
-  const activeEl = document.getElementById("activeCount");
-  const completedEl = document.getElementById("completedCount");
+  // Update count
 
-  if (totalEl) totalEl.textContent = total;
-  if (activeEl) activeEl.textContent = active;
-  if (completedEl) completedEl.textContent = completed;
+  document.getElementById("totalCount").textContent = totalCount;
+  document.getElementById("activeCount").textContent = activeCount;
+  document.getElementById("completedCount").textContent = completedCount;
 }
 
-// initialize counts & filters on load (if there are any pre-existing items)
-document.addEventListener("DOMContentLoaded", () => {
-  totalCount();
-  filterTasks();
-});
+// Function to apply filters
+
+function applyActiveFilters() {
+  const activeStatusFilter = document.querySelector(".status-filter .active");
+  const statusType = activeStatusFilter.id.replace("Filter", "").toLowerCase();
+
+  const categoryFilterValue =
+    document.getElementById("categoryFilterButton").dataset.value || "";
+
+  applyStatusFilter(statusType);
+  applyCategoryFilter(categoryFilterValue);
+}
+
+// Toggle Theme button
+
+function toggleTheme() {
+  let icon = document.getElementById("themeIcon");
+  let body = document.body;
+
+  body.classList.toggle("dark-mode");
+
+  if (icon.classList.contains("fa-moon")) {
+    icon.classList.remove("fa-moon");
+    icon.classList.add("fa-sun");
+    icon.title = "Light Mode";
+    localStorage.setItem("theme", "dark");
+  } else if (icon.classList.contains("fa-sun")) {
+    icon.classList.remove("fa-sun");
+    icon.classList.add("fa-moon");
+    icon.title = "Dark Mode";
+    localStorage.setItem("theme", "light");
+  }
+}
+
+// Check theme on laod
+let icon = document.getElementById("themeIcon");
+let body = document.body;
+
+let storedTheme = localStorage.getItem("theme");
+// console.log(storedTheme);
+
+if (storedTheme === "dark") {
+  icon.classList.remove("fa-moon");
+  icon.classList.add("fa-sun");
+  body.classList.add("dark-mode");
+}
